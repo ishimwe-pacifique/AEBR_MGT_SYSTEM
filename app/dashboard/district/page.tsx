@@ -5,15 +5,16 @@ import { useSession } from 'next-auth/react'
 import DashboardLayout from '@/components/dashboard/DashboardLayout'
 import StatCard from '@/components/dashboard/StatCard'
 import DataTable from '@/components/dashboard/DataTable'
-import { LayoutDashboard, Building2, Users, TrendingUp, BarChart3 } from 'lucide-react'
+import { LayoutDashboard, Building2, Users, TrendingUp, BarChart3, UserCog } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
-const navItems = [
-  { label: 'Overview', href: '/dashboard/district', icon: LayoutDashboard },
-  { label: 'Churches', href: '/dashboard/district', icon: Building2 },
-  { label: 'Members', href: '/dashboard/district', icon: Users },
-  { label: 'Finances', href: '/dashboard/district', icon: TrendingUp },
-  { label: 'Reports', href: '/dashboard/district', icon: BarChart3 },
+export const navItems = [
+  { label: 'Overview',  href: '/dashboard/district',           icon: LayoutDashboard },
+  { label: 'Churches',  href: '/dashboard/district/churches',  icon: Building2 },
+  { label: 'Users',     href: '/dashboard/district/users',     icon: UserCog },
+  { label: 'Members',   href: '/dashboard/district',           icon: Users },
+  { label: 'Finances',  href: '/dashboard/district',           icon: TrendingUp },
+  { label: 'Reports',   href: '/dashboard/district',           icon: BarChart3 },
 ]
 
 export default function DistrictDashboard() {
@@ -26,9 +27,9 @@ export default function DistrictDashboard() {
   }, [])
 
   const churchColumns = [
-    { key: 'name', label: 'Church Name' },
+    { key: 'name',    label: 'Church Name' },
     { key: 'members', label: 'Members' },
-    { key: 'income', label: 'Income (RWF)', render: (r: any) => r.income.toLocaleString() },
+    { key: 'income',  label: 'Income (RWF)', render: (r: any) => r.income.toLocaleString() },
   ]
 
   return (
@@ -41,27 +42,27 @@ export default function DistrictDashboard() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard title="Total Churches" value={data?.stats.totalChurches ?? '—'} icon={Building2} color="green" />
-          <StatCard title="Total Members" value={data?.stats.totalMembers ?? '—'} icon={Users} color="gold" />
-          <StatCard title="Total Income" value={`RWF ${(data?.stats.totalIncome ?? 0).toLocaleString()}`} icon={TrendingUp} color="blue" />
+          <StatCard title="Total Members"  value={data?.stats.totalMembers  ?? '—'} icon={Users}     color="gold" />
+          <StatCard title="Total Income"   value={`RWF ${(data?.stats.totalIncome   ?? 0).toLocaleString()}`} icon={TrendingUp} color="blue" />
           <StatCard title="Total Expenses" value={`RWF ${(data?.stats.totalExpenses ?? 0).toLocaleString()}`} icon={TrendingUp} color="red" />
         </div>
 
         {data?.churches?.length > 0 && (
           <div className="bg-white rounded-2xl p-6 border border-border shadow-sm">
-            <h2 className="text-lg font-semibold text-foreground mb-6">Churches by Members</h2>
+            <h2 className="text-lg font-semibold mb-6">Churches by Members</h2>
             <ResponsiveContainer width="100%" height={240}>
               <BarChart data={data.churches}>
                 <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                 <YAxis tick={{ fontSize: 11 }} />
                 <Tooltip />
-                <Bar dataKey="members" fill="#1a3a2a" radius={[4, 4, 0, 0]} name="Members" />
+                <Bar dataKey="members" fill="#1a3a2a" radius={[4,4,0,0]} name="Members" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         )}
 
         <div>
-          <h2 className="text-lg font-semibold text-foreground mb-4">Church Breakdown</h2>
+          <h2 className="text-lg font-semibold mb-4">Church Breakdown</h2>
           <DataTable columns={churchColumns} data={data?.churches ?? []} emptyMessage="No churches in this district" />
         </div>
       </div>

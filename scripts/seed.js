@@ -87,13 +87,13 @@ async function seed() {
 
   const accountant = await User.create({
     name: 'Alice Uwase', email: 'accountant@aebr.rw',
-    password: hash, role: 'accountant', church: church1._id,
+    password: hash, role: 'accountant', church: church1._id, isActive: true,
   })
-  await User.create({ name: 'Pastor Jean',     email: 'pastor@aebr.rw',    password: hash, role: 'pastor',         church: church1._id })
-  await User.create({ name: 'Registrar Marie', email: 'registrar@aebr.rw', password: hash, role: 'registrar',      church: church1._id })
-  await User.create({ name: 'District Admin',  email: 'district@aebr.rw',  password: hash, role: 'district_admin', district: gasabo._id, province: kigali._id })
-  await User.create({ name: 'Province Admin',  email: 'province@aebr.rw',  password: hash, role: 'province_admin', province: kigali._id })
-  await User.create({ name: 'National Admin',  email: 'admin@aebr.rw',     password: hash, role: 'national_admin'  })
+  await User.create({ name: 'Pastor Jean',     email: 'pastor@aebr.rw',    password: hash, role: 'pastor',         church: church1._id,                                    isActive: true })
+  await User.create({ name: 'Registrar Marie', email: 'registrar@aebr.rw', password: hash, role: 'registrar',      church: church1._id,                                    isActive: true })
+  await User.create({ name: 'District Admin',  email: 'district@aebr.rw',  password: hash, role: 'district_admin', district: gasabo._id, province: kigali._id,            isActive: true })
+  await User.create({ name: 'Province Admin',  email: 'province@aebr.rw',  password: hash, role: 'province_admin', province: kigali._id,                                   isActive: true })
+  await User.create({ name: 'National Admin',  email: 'admin@aebr.rw',     password: hash, role: 'national_admin',                                                         isActive: true })
   console.log('Users created')
 
   const saved = await User.find({}, 'email role').lean()
