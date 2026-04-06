@@ -13,7 +13,7 @@ export const navItems = [
   { label: 'Provinces',  href: '/dashboard/admin/provinces', icon: Globe },
   { label: 'Districts',  href: '/dashboard/admin/districts', icon: MapPin },
   { label: 'Churches',   href: '/dashboard/admin/churches',  icon: Building2 },
-  { label: 'Reports',    href: '/dashboard/admin',           icon: BarChart3 },
+  { label: 'Reports',    href: '/dashboard/admin/reports',   icon: BarChart3 },
 ]
 
 const PIE_COLORS = ['#1a3a2a', '#c9a84c', '#2d6a4f', '#e9c46a', '#264653']
