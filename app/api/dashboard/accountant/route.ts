@@ -13,7 +13,10 @@ export async function GET() {
   await connectDB()
   const churchId = (session.user as any).churchId
 
-  const transactions = await Transaction.find({ church: churchId }).sort({ date: -1 }).lean()
+  const transactions = await Transaction.find({ church: churchId })
+    .populate('member', 'firstName lastName')
+    .sort({ date: -1 })
+    .lean()
 
   const totalIncome = transactions.filter(t => t.type !== 'expense').reduce((s, t) => s + t.amount, 0)
   const totalExpenses = transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0)

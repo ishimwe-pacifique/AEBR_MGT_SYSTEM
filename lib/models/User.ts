@@ -18,6 +18,9 @@ const UserSchema = new Schema({
   // Province admin
   province: { type: Schema.Types.ObjectId, ref: 'Province' },
   isActive: { type: Boolean, default: true },
+  // Password reset
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
 }, { timestamps: true })
 
 export const User = models.User || model('User', UserSchema)

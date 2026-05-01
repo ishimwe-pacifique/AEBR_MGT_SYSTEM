@@ -10,9 +10,11 @@ const TransactionSchema = new Schema({
   currency: { type: String, default: 'RWF' },
   description: String,
   church: { type: Schema.Types.ObjectId, ref: 'Church', required: true },
+  member: { type: Schema.Types.ObjectId, ref: 'Member', default: null },
   recordedBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   date: { type: Date, default: Date.now },
   category: String,
+  reference: String,
 }, { timestamps: true })
 
 export const Transaction = models.Transaction || model('Transaction', TransactionSchema)
