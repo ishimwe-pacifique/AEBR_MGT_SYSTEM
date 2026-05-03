@@ -19,7 +19,8 @@ const UserSchema = new Schema({
   province: { type: Schema.Types.ObjectId, ref: 'Province' },
   isActive: { type: Boolean, default: true },
   // Password reset
-  resetPasswordToken: { type: String },
+  resetPasswordToken: { type: String }, // hashed token for URL identification
+  verificationCode: { type: String },   // hashed verification code
   resetPasswordExpires: { type: Date },
 }, { timestamps: true })
 
